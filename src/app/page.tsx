@@ -1,103 +1,110 @@
-import Image from "next/image";
+"use client";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import './globals.css'
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [animatedText, setAnimatedText] = useState([
+    "Scanning for vulnerabilities...",
+    "Analyzing security protocols...",
+    "Identifying potential exploits...",
+    "Initializing bug hunting sequence...",
+  ]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimatedText((prevText) => [
+        ...prevText.slice(-3),
+        `System scan progress: ${Math.floor(Math.random() * 100)}%...`,
+      ]);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div>
+      <Navbar />
+      <div className="bg-gradient-to-b from-blue-900 to-black text-white min-h-screen">
+        <div className="container mx-auto px-6 py-12">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Left Column - Main Content */}
+            <div className="lg:w-1/2">
+              <div className="relative">
+                <h1 className="text-7xl md:text-8xl font-bold">
+                  <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-600 bg-clip-text text-transparent 
+                                  hover:from-blue-400 hover:via-cyan-500 hover:to-blue-600 transition-all duration-500">
+                    Bug
+                  </span>
+                  <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-400 bg-clip-text text-transparent 
+                                  hover:from-cyan-400 hover:via-blue-500 hover:to-cyan-600 transition-all duration-500">
+                    Smasher
+                  </span>
+                </h1>
+                <div className="text-2xl font-mono text-cyan-400/80 mt-2 ml-1">
+                  <span className="inline-block">
+                    <span className="text-blue-500/80">&gt;</span> ./2025_edition
+                  </span>
+                  <span className="inline-block ml-2 animate-pulse">▌</span>
+                </div>
+                <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-20 blur-2xl -z-10 rounded-3xl"></div>
+              </div>
+              <p className="text-xl mt-6 text-gray-300 leading-relaxed">
+                Join the ultimate bug hunting challenge! Put your cybersecurity skills to the test 
+                and compete to find vulnerabilities across multiple web applications.
+              </p>
+              
+              <div className="mt-8 space-y-4">
+                <h2 className="text-2xl font-semibold text-cyan-400">Event Highlights</h2>
+                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                  <li>3-day intensive bug hunting competition (8th - 10th April)</li>
+                  <li>100 points for each unique bug discovery</li>
+                  <li>Bonus 150 points for unintended vulnerabilities</li>
+                  <li>Race against time and fellow hunters!</li>
+                </ul>
+              </div>
+
+              <div className="mt-10 space-x-4">
+                <Link href="/about">
+                  <button className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:opacity-90 transform hover:scale-105 transition duration-200 shadow-lg">
+                    Start Hunting
+                  </button>
+                </Link>
+                <Link href="/projects">
+                  <button className="border border-cyan-500 text-cyan-400 px-8 py-3 rounded-full text-lg font-semibold hover:bg-cyan-500/10 transition duration-200">
+                    View Targets
+                  </button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column - Animation Panel */}
+            <div className="lg:w-1/2 mt-12 lg:mt-0">
+              <div className="bg-black/50 backdrop-blur-sm border border-cyan-500/30 rounded-lg p-6 shadow-2xl">
+                <div className="text-cyan-400 font-mono text-sm">
+                  <div>$ initialize_bug_hunt.sh</div>
+                  <div className="h-[240px] overflow-hidden">
+                    {animatedText.map((text, index) => (
+                      <p key={index} 
+                         className="text-blue-400 opacity-70"
+                         style={{animation: 'fadeIn 0.5s ease-in'}}>
+                        {text}
+                      </p>
+                    ))}
+                  </div>
+                  <div className="mt-4">
+                    <span className="animate-pulse">▌</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      <Footer />
     </div>
   );
 }
